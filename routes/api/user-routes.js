@@ -1,6 +1,22 @@
-const { getAllUsers } = require("../../controllers/user-controller")
-const router = require("express").Router()
+const {
+  getAllUsers,
+  createUser,
+  getUserById,
+  deleteUserById,
+  updateUserById,
+  addFriend,
+  deleteFriend,
+} = require("../../controllers/user-controller");
+const router = require("express").Router();
 
-router.get("/", getAllUsers)
+router.route("/").get(getAllUsers).post(createUser);
 
-module.exports = router
+router
+  .route("/:userId")
+  .get(getUserById)
+  .delete(deleteUserById)
+  .put(updateUserById);
+
+router.route("/:userId/friends/:friendId").put(addFriend).delete(deleteFriend);
+
+module.exports = router;
